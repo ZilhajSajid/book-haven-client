@@ -1,5 +1,6 @@
 import React, { use } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import axios from "axios";
 
 const Register = () => {
   const { signInWithGoogle } = use(AuthContext);
@@ -13,16 +14,24 @@ const Register = () => {
           image: result.user.photoURL,
         };
         // create user in db
-        fetch("http://localhost:3000/users", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log("data after fetch", data);
+        // fetch("http://localhost:3000/users", {
+        //   method: "POST",
+        //   headers: {
+        //     "content-type": "application/json",
+        //   },
+        //   body: JSON.stringify(newUser),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     console.log("data after fetch", data);
+        //   });
+        axios
+          .post("http://localhost:3000/users", newUser)
+          .then((res) => {
+            console.log("response after axios", res);
+          })
+          .catch((err) => {
+            console.log(err);
           });
       })
       .catch((error) => {
