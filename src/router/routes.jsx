@@ -6,6 +6,7 @@ import Register from "../components/Register/Register";
 import AddBooks from "../components/AddBooks/AddBooks";
 import MyBooks from "../components/MyBooks/MyBooks";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
+import BookDetails from "../components/BookDetails/BookDetails";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ export const router = createBrowserRouter([
       {
         path: "/myBooks",
         element: <MyBooks></MyBooks>,
+      },
+      {
+        path: "/bookDetails/:id",
+        loader:({params})=>fetch(`http://localhost:3000/all-books/${params.id}`),
+        element: <BookDetails></BookDetails>,
       },
       {
         path: "*",
