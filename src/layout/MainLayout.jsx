@@ -12,6 +12,8 @@ const MainLayout = () => {
         <div>
           <Outlet></Outlet>
         </div>
+      </div>
+      <div className="w-full">
         <Footer></Footer>
       </div>
       <Toaster />

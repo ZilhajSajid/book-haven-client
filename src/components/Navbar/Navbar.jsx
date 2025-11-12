@@ -67,7 +67,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          <a onClick={handleSignOut} className="btn">
+          <a onClick={handleSignOut} className="btn btn-accent">
             Sign Out
           </a>
         ) : (

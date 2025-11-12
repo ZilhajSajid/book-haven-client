@@ -29,7 +29,7 @@ const Banner = () => {
           className="text-center md:text-left space-y-6"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-primary leading-tight">
-            Welcome to <span className="text-accent">The Book Haven</span>
+            Welcome to <span className="text-primary">The Book Haven</span>
           </h1>
           <p className="text-textSecondary max-w-md">
             Discover, read, and manage your favorite books in one elegant
