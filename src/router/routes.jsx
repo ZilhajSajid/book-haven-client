@@ -5,6 +5,7 @@ import AllBooks from "../components/AllBooks/AllBooks";
 import Register from "../components/Register/Register";
 import AddBooks from "../components/AddBooks/AddBooks";
 import MyBooks from "../components/MyBooks/MyBooks";
+import ErrorPage from "../components/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "/myBooks",
         element: <MyBooks></MyBooks>,
+      },
+      {
+        path: "*",
+        element: <ErrorPage></ErrorPage>,
       },
     ],
   },
