@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Banner from "../Navbar/Banner";
 import LatestBooks from "../LatestBooks/LatestBooks";
 import axios from "axios";
+import TopGenres from "../TopGenres/TopGenres";
+import FeaturedBook from "../FeaturedBook/FeaturedBook";
+import AboutBookHaven from "../AboutBookHeaven/AboutBookHeaven";
 
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);
@@ -26,6 +29,9 @@ const Home = () => {
     <div>
       <Banner></Banner>
       <LatestBooks latestBooks={latestBooks}></LatestBooks>
+      <TopGenres></TopGenres>
+      <FeaturedBook></FeaturedBook>
+      <AboutBookHaven></AboutBookHaven>
     </div>
   );
 };

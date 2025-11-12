@@ -10,7 +10,6 @@ const Banner = () => {
   const images = [banner1, banner2, banner3];
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Auto-slide every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);

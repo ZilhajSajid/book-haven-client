@@ -32,6 +32,9 @@ const BookDetails = () => {
         </p>
         <p className="text-gray-700 leading-relaxed">{summary}</p>
       </div>
+      <div className="card-actions justify-end">
+        <button className="btn btn-primary">Add Book</button>
+      </div>
     </div>
   );
 };
