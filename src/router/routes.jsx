@@ -19,6 +19,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/allBooks",
+        loader: () => fetch("http://localhost:3000/all-books"),
         element: <AllBooks></AllBooks>,
       },
       {
@@ -35,7 +36,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/bookDetails/:id",
-        loader:({params})=>fetch(`http://localhost:3000/all-books/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/all-books/${params.id}`),
         element: <BookDetails></BookDetails>,
       },
       {
