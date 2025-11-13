@@ -4,7 +4,7 @@ import Books from "./Books";
 
 const AllBooks = () => {
   const books = useLoaderData();
-  const { author, coverImage, genre, title, summary, rating } = books;
+
   //   console.log(books);
 
   return (
