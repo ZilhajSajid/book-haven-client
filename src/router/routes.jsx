@@ -9,6 +9,7 @@ import ErrorPage from "../components/ErrorPage/ErrorPage";
 import BookDetails from "../components/BookDetails/BookDetails";
 import Login from "../components/Register/Login";
 import PrivateRoute from "./PrivateRoute";
+import UpdateBook from "../components/UpdateBook/UpdateBook";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyBooks></MyBooks>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/updateBook/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateBook></UpdateBook>
           </PrivateRoute>
         ),
       },

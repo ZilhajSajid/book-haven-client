@@ -2,11 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+
 const MyBooks = () => {
   const { user } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
+  // Fetch user's books
   useEffect(() => {
     if (!user?.email) return;
 
@@ -26,6 +30,7 @@ const MyBooks = () => {
     fetchBooks();
   }, [user?.email]);
 
+  // Delete handler
   const handleDelete = async (id) => {
     const confirmDelete = confirm("Are you sure you want to delete this book?");
     if (!confirmDelete) return;
@@ -37,7 +42,9 @@ const MyBooks = () => {
 
       if (response.data.deletedCount > 0) {
         toast.success("Book deleted successfully!");
-        setBooks(books.filter((book) => book._id !== id));
+        setBooks((prevBooks) =>
+          prevBooks.filter((book) => book._id !== id && book.originalId !== id)
+        );
       } else {
         toast.error("Failed to delete the book.");
       }
@@ -45,6 +52,11 @@ const MyBooks = () => {
       console.error("Error deleting book:", error);
       toast.error("Something went wrong!");
     }
+  };
+
+  // Update handler (navigate to update page)
+  const handleUpdate = (id) => {
+    navigate(`/updateBook/${id}`);
   };
 
   if (loading)
@@ -61,31 +73,50 @@ const MyBooks = () => {
           You haven’t added any books yet.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {books.map((book) => (
-            <div
-              key={book._id}
-              className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition relative"
-            >
-              <img
-                src={book.coverImage}
-                alt={book.title}
-                className="rounded-md h-60 w-full object-cover mb-3"
-              />
-              <h3 className="text-xl font-semibold">{book.title}</h3>
-              <p className="text-gray-600">by {book.author}</p>
-              <p className="text-sm text-gray-500 mt-1">Genre: {book.genre}</p>
-              <p className="text-yellow-500 mt-2">⭐ {book.rating}</p>
-
-              {/* Delete button */}
-              <button
-                onClick={() => handleDelete(book._id)}
-                className="btn btn-sm btn-error bg-primary border-0 text-white mt-3 w-full"
-              >
-                Delete Book
-              </button>
-            </div>
-          ))}
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full border-collapse border border-gray-300">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border px-4 py-2">Cover</th>
+                <th className="border px-4 py-2">Title</th>
+                <th className="border px-4 py-2">Author</th>
+                <th className="border px-4 py-2">Genre</th>
+                <th className="border px-4 py-2">Rating</th>
+                <th className="border px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {books.map((book) => (
+                <tr key={book._id} className="text-center">
+                  <td className="border px-4 py-2">
+                    <img
+                      src={book.coverImage}
+                      alt={book.title}
+                      className="h-16 w-auto mx-auto rounded"
+                    />
+                  </td>
+                  <td className="border px-4 py-2">{book.title}</td>
+                  <td className="border px-4 py-2">{book.author}</td>
+                  <td className="border px-4 py-2">{book.genre}</td>
+                  <td className="border px-4 py-2">⭐ {book.rating}</td>
+                  <td className="border px-4 py-2 space-x-2">
+                    <button
+                      onClick={() => handleUpdate(book._id)}
+                      className="btn btn-sm btn-warning"
+                    >
+                      Update
+                    </button>
+                    <button
+                      onClick={() => handleDelete(book._id)}
+                      className="btn btn-sm btn-error"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

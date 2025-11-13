@@ -98,8 +98,8 @@ const Register = () => {
   };
 
   return (
-    <div className="card bg-base-100 w-full mx-auto max-w-sm shadow-2xl p-6">
-      <h1 className="text-3xl text-center font-bold mb-4">Register now!</h1>
+    <div className="card bg-base-100 w-full max-w-sm mx-auto shadow-2xl p-6 mt-10">
+      <h1 className="text-3xl font-bold text-center mb-6">Register</h1>
 
       <form onSubmit={handleRegister} className="space-y-4">
         <div>
@@ -107,10 +107,10 @@ const Register = () => {
           <input
             type="text"
             name="name"
+            placeholder="Your Name"
             className="input input-bordered w-full"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Your Name"
             required
           />
           {nameError && (
@@ -123,10 +123,10 @@ const Register = () => {
           <input
             type="email"
             name="email"
+            placeholder="Your Email"
             className="input input-bordered w-full"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Your Email"
             required
           />
         </div>
@@ -136,10 +136,10 @@ const Register = () => {
           <input
             type="password"
             name="password"
+            placeholder="Password"
             className="input input-bordered w-full"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Password"
             required
           />
           <p className="text-xs text-gray-500 mt-1">
@@ -153,10 +153,10 @@ const Register = () => {
           <input
             type="text"
             name="photoURL"
+            placeholder="Profile Image URL"
             className="input input-bordered w-full"
             value={formData.photoURL}
             onChange={handleChange}
-            placeholder="Profile Image URL"
             required
           />
         </div>
@@ -176,11 +176,10 @@ const Register = () => {
           aria-label="Google logo"
           width="16"
           height="16"
-          xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
         >
           <g>
-            <path d="m0 0H512V512H0" fill="#fff"></path>
+            <path fill="#fff" d="M0 0H512V512H0"></path>
             <path
               fill="#34a853"
               d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
