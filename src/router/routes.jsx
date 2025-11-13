@@ -49,10 +49,29 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/bookDetails/:id",
+        path: "/myBooks/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:3000/all-books/${params.id}`),
-        element: <BookDetails></BookDetails>,
+        element: (
+          <PrivateRoute>
+            <BookDetails></BookDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/bookDetails/:id",
+        loader: async ({ params }) => {
+          let res = await fetch(`http://localhost:3000/myBooks/${params.id}`);
+          if (res.status === 404) {
+            res = await fetch(`http://localhost:3000/all-books/${params.id}`);
+          }
+          return res.json();
+        },
+        element: (
+          <PrivateRoute>
+            <BookDetails></BookDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "*",

@@ -2,7 +2,7 @@ import React from "react";
 import Book from "../Book/Book";
 
 const LatestBooks = ({ latestBooks }) => {
-  //   console.log(latestBooks);
+  console.log(latestBooks);
 
   return (
     <div>

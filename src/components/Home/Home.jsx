@@ -12,7 +12,7 @@ const Home = () => {
   const [error, setError] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:3000/latest-books")
+      .get("http://localhost:3000/myBooks")
       .then((res) => {
         setLatestBooks(res.data);
         setLoading(false);

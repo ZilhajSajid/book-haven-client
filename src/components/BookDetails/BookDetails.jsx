@@ -20,7 +20,7 @@ const BookDetails = () => {
         const res = await axios.get(
           `http://localhost:3000/myBooks?email=${user.email}`
         );
-        
+
         const added = res.data.some((b) => b._id === _id);
         setAlreadyAdded(added);
       } catch (err) {
@@ -42,8 +42,9 @@ const BookDetails = () => {
       return;
     }
 
+    // Copy all fields from the original book
     const newBook = {
-      _id, 
+      originalId: _id, // store the original all-books _id
       title,
       author,
       coverImage,

@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router";
 
-const Books = ({ book }) => {
-  const { _id, title, author, genre, rating, coverImage } = book;
+const Book = ({ book }) => {
+  const { _id, title, coverImage, summary, userEmail } = book;
+
+  // Determine which route to use
+  const detailsLink = userEmail
+    ? `/myBooks/${_id}` // MyBooks collection
+    : `/allBooks/${_id}`; // AllBooks collection
+
   return (
     <div className="card bg-base-100 w-96 shadow-sm hover:scale-105 transition ease-in-out mt-2">
       <figure className="px-10 pt-10">
@@ -10,11 +16,10 @@ const Books = ({ book }) => {
       </figure>
       <div className="card-body items-center text-center">
         <h2 className="card-title">{title}</h2>
-        <p>Author: {author}</p>
-        <p>Genre: {genre}</p>
-        <p>Rating: {rating} ⭐</p>
+        {/* {userEmail && <h2 className="card-title">{userEmail}</h2>} */}
+        <p>{summary}</p>
         <div className="card-actions">
-          <Link to={`/bookDetails/${_id}`} className="btn btn-primary">
+          <Link to={detailsLink} className="btn btn-primary">
             View Details
           </Link>
         </div>
@@ -23,4 +28,4 @@ const Books = ({ book }) => {
   );
 };
 
-export default Books;
+export default Book;
