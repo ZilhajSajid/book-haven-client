@@ -20,7 +20,9 @@ const UpdateBook = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/myBooks/${id}`);
+        const res = await axios.get(
+          `https://book-haven-server-chi.vercel.app/myBooks/${id}`
+        );
         const data = res.data;
         setBook({
           title: data.title,
@@ -55,7 +57,7 @@ const UpdateBook = () => {
       };
 
       const res = await axios.put(
-        `http://localhost:3000/myBooks/${id}`,
+        `https://book-haven-server-chi.vercel.app/myBooks/${id}`,
         updatedBook
       );
 

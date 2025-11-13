@@ -17,7 +17,7 @@ const MyBooks = () => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/myBooks?email=${user.email}`
+          `https://book-haven-server-chi.vercel.app/myBooks?email=${user.email}`
         );
         setBooks(response.data);
       } catch (error) {
@@ -37,7 +37,7 @@ const MyBooks = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:3000/myBooks/${id}`
+        `https://book-haven-server-chi.vercel.app/myBooks/${id}`
       );
 
       if (response.data.deletedCount > 0) {

@@ -5,7 +5,7 @@ const FeaturedBook = () => {
   const [book, setBook] = useState(null);
   useEffect(() => {
     axios
-      .get("http://localhost:3000/featured-books")
+      .get("https://book-haven-server-chi.vercel.app/featured-books")
       .then((res) => setBook(res.data))
       .catch((err) => console.log(err));
   }, []);

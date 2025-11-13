@@ -12,7 +12,7 @@ const Home = () => {
   const [error, setError] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:3000/myBooks")
+      .get("https://book-haven-server-chi.vercel.app/myBooks")
       .then((res) => {
         setLatestBooks(res.data);
         setLoading(false);

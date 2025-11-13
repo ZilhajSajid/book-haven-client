@@ -35,7 +35,10 @@ const AddBooks = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/myBooks", newBook);
+      const res = await axios.post(
+        "https://book-haven-server-chi.vercel.app/myBooks",
+        newBook
+      );
       if (res.data.insertedId) {
         toast.success("Book added successfully!");
         navigate("/myBooks");

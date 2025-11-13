@@ -22,7 +22,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/allBooks",
-        loader: () => fetch("http://localhost:3000/all-books"),
+        loader: () =>
+          fetch("https://book-haven-server-chi.vercel.app/all-books"),
         element: <AllBooks></AllBooks>,
       },
       {
@@ -60,7 +61,9 @@ export const router = createBrowserRouter([
       {
         path: "/myBooks/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/all-books/${params.id}`),
+          fetch(
+            `https://book-haven-server-chi.vercel.app/all-books/${params.id}`
+          ),
         element: (
           <PrivateRoute>
             <BookDetails></BookDetails>
@@ -70,9 +73,13 @@ export const router = createBrowserRouter([
       {
         path: "/bookDetails/:id",
         loader: async ({ params }) => {
-          let res = await fetch(`http://localhost:3000/myBooks/${params.id}`);
+          let res = await fetch(
+            `https://book-haven-server-chi.vercel.app/myBooks/${params.id}`
+          );
           if (res.status === 404) {
-            res = await fetch(`http://localhost:3000/all-books/${params.id}`);
+            res = await fetch(
+              `https://book-haven-server-chi.vercel.app/all-books/${params.id}`
+            );
           }
           return res.json();
         },

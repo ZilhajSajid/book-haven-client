@@ -7,7 +7,7 @@ const TopGenres = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/all-books")
+      .get("https://book-haven-server-chi.vercel.app/all-books")
       .then((res) => setGenres(res.data))
       .catch((err) => console.error("Error fetching genres:", err));
   }, []);

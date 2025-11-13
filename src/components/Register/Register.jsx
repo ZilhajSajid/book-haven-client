@@ -58,7 +58,7 @@ const Register = () => {
 
       setUser({ ...user, displayName: name, photoURL });
 
-      await axios.post("http://localhost:3000/users", {
+      await axios.post("https://book-haven-server-chi.vercel.app/users", {
         name,
         email,
         photoURL,
@@ -77,7 +77,7 @@ const Register = () => {
       const result = await signInWithGoogle();
       const user = result.user;
 
-      await axios.post("http://localhost:3000/users", {
+      await axios.post("https://book-haven-server-chi.vercel.app/users", {
         name: user.displayName,
         email: user.email,
         photoURL: user.photoURL,

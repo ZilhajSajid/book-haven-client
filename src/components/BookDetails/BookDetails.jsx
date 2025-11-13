@@ -19,7 +19,7 @@ const BookDetails = () => {
     const checkBookAdded = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/myBooks?email=${user.email}`
+          `https://book-haven-server-chi.vercel.app/myBooks?email=${user.email}`
         );
         const added = res.data.some(
           (b) => b._id === _id || b.originalId === _id
@@ -37,7 +37,7 @@ const BookDetails = () => {
     const fetchComments = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/comments?bookId=${_id}`
+          `https://book-haven-server-chi.vercel.app/comments?bookId=${_id}`
         );
         setComments(
           res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -75,7 +75,10 @@ const BookDetails = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/myBooks", newBook);
+      const res = await axios.post(
+        "https://book-haven-server-chi.vercel.app/myBooks",
+        newBook
+      );
       if (res.data.insertedId) {
         toast.success("✅ Book added successfully!");
         setAlreadyAdded(true);
@@ -104,7 +107,7 @@ const BookDetails = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/comments",
+        "https://book-haven-server-chi.vercel.app/comments",
         newComment
       );
       if (res.data.insertedId) {
