@@ -8,6 +8,7 @@ import MyBooks from "../components/MyBooks/MyBooks";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
 import BookDetails from "../components/BookDetails/BookDetails";
 import Login from "../components/Register/Login";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -33,11 +34,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addBooks",
-        element: <AddBooks></AddBooks>,
+        element: (
+          <PrivateRoute>
+            <AddBooks></AddBooks>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/myBooks",
-        element: <MyBooks></MyBooks>,
+        element: (
+          <PrivateRoute>
+            <MyBooks></MyBooks>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/bookDetails/:id",
