@@ -67,12 +67,32 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          <a onClick={handleSignOut} className="btn btn-accent">
-            Sign Out
-          </a>
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img src={user.photoURL} alt={user.displayName || "User"} />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <span className="font-semibold">Hello, {user.displayName}</span>
+              </li>
+              <li>
+                <button
+                  onClick={handleSignOut}
+                  className="btn btn-accent w-full"
+                >
+                  Log Out
+                </button>
+              </li>
+            </ul>
+          </div>
         ) : (
-          <Link to="/register" className="btn">
-            Sign In
+          <Link to="/login" className="btn btn-primary">
+            Login
           </Link>
         )}
       </div>

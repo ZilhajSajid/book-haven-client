@@ -20,7 +20,7 @@ const BookDetails = () => {
         const res = await axios.get(
           `http://localhost:3000/myBooks?email=${user.email}`
         );
-        // Check if this specific book is already added
+        
         const added = res.data.some((b) => b._id === _id);
         setAlreadyAdded(added);
       } catch (err) {
@@ -43,7 +43,7 @@ const BookDetails = () => {
     }
 
     const newBook = {
-      _id, // unique book id
+      _id, 
       title,
       author,
       coverImage,
