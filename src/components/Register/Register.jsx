@@ -5,7 +5,8 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 const Register = () => {
-  const { createUser, signInWithGoogle, setUser } = useContext(AuthContext);
+  const { createUser, signInWithGoogle, setUser, updateUser } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const Register = () => {
     password: "",
     photoURL: "",
   });
+
+  const [nameError, setNameError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,66 +36,64 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password, photoURL } = formData;
 
-    if (!name || !email || !password || !photoURL) {
-      toast.error("Please fill all fields including photo URL!");
+    if (name.length < 5) {
+      setNameError("Your name should be more than five characters");
       return;
+    } else {
+      setNameError("");
     }
 
     if (!validatePassword(password)) {
       toast.error(
-        "Password must be at least 6 characters long and include uppercase and lowercase letters."
+        "Password must be at least 6 characters long and include both uppercase and lowercase letters."
       );
       return;
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/users", {
+      const result = await createUser(email, password);
+      const user = result.user;
+
+      await updateUser({ displayName: name, photoURL });
+
+      setUser({ ...user, displayName: name, photoURL });
+
+      await axios.post("http://localhost:3000/users", {
         name,
         email,
-        password,
         photoURL,
       });
 
-      if (res.status === 201) {
-        toast.success("Registration successful!");
-
-        const userCredential = await createUser(email, password);
-        const firebaseUser = userCredential.user;
-
-        await firebaseUser.updateProfile({
-          displayName: name,
-          photoURL,
-        });
-
-        setUser(firebaseUser);
-
-        navigate("/");
-      }
+      toast.success("Registration successful!");
+      navigate("/");
     } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || "Failed to register user");
+      toast.error(error.message || "Failed to register");
     }
   };
 
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithGoogle();
-      const googleUser = result.user;
+      const user = result.user;
 
-      // Register or update user in backend
       await axios.post("http://localhost:3000/users", {
-        name: googleUser.displayName,
-        email: googleUser.email,
-        photoURL: googleUser.photoURL,
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
       });
 
-      // Auto-login
-      setUser(googleUser);
-      toast.success(`Welcome, ${googleUser.displayName}!`);
+      setUser(user);
+      toast.success("Signed in successfully!");
       navigate("/");
     } catch (error) {
-      console.error(error);
-      toast.error("Google sign-in failed");
+      if (error.response?.data?.message === "User already exists.") {
+        toast.success("Welcome back!");
+        navigate("/");
+      } else {
+        console.error(error);
+        toast.error("Google sign-in failed.");
+      }
     }
   };
 
@@ -112,6 +113,9 @@ const Register = () => {
             placeholder="Your Name"
             required
           />
+          {nameError && (
+            <p className="text-red-500 text-sm mt-1">{nameError}</p>
+          )}
         </div>
 
         <div>
